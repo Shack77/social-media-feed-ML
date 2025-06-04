@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 4000;
+const authRoutes = require("./routes/auth");
 
 app.use(express.json());
+app.use("/auth", authRoutes);
 
-// Health check
-app.get("/health", (req, res) => {
-  res.json({ status: "OK" });
+app.get("/", (req, res) => {
+  res.send("✅ Server is up.");
 });
 
+const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server listening on port ${PORT}`);
 });
+
