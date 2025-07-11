@@ -435,3 +435,20 @@ app.post("/auth/logout", (req, res) => {
 
 const PORT = 3001;
 server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+=======
+const express = require("express");
+const app = express();
+const authRoutes = require("./routes/auth");
+
+app.use(express.json());
+app.use("/auth", authRoutes);
+
+app.get("/", (req, res) => {
+  res.send("✅ Server is up.");
+});
+
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server listening on port ${PORT}`);
+});
+

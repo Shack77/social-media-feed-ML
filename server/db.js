@@ -1,3 +1,4 @@
+
 // db.js
 const { Pool } = require("pg");
 const { Sequelize } = require('sequelize');
@@ -18,4 +19,14 @@ const sequelize = new Sequelize('social_feed', 'postges', '1234567', {
 });
 
 module.exports = sequelize;
+
+=======
+const { Pool } = require("pg");
+require("dotenv").config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+module.exports = pool;
 
