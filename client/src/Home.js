@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { FaUserCircle, FaThumbsUp, FaCommentAlt } from "react-icons/fa";
 
 function Home() {
+  const navigate = useNavigate();
+
+  // 🔐 Redirect if already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/feed");
+    }
+  }, [navigate]);
+
   const fakePosts = [
     {
       id: 1,
       user: "John Doe",
-      content: "Just finished a great ML project! 🚀",
+      content: "Just finished a great ML project!",
       time: "2 hours ago",
     },
     {
@@ -19,11 +30,10 @@ function Home() {
   ];
 
   return (
-    
     <Container className="mt-5">
       <Row className="justify-content-md-center">
         <Col md={8}>
-          <h2 className="text-center mb-4"> Social Feed</h2>
+          <h2 className="text-center mb-4">Social Feed</h2>
           {fakePosts.map((post) => (
             <Card className="mb-4 shadow-sm" key={post.id}>
               <Card.Body>
@@ -31,7 +41,9 @@ function Home() {
                   <FaUserCircle size={30} className="me-2 text-primary" />
                   <div>
                     <strong>{post.user}</strong>
-                    <div className="text-muted" style={{ fontSize: "0.85rem" }}>{post.time}</div>
+                    <div className="text-muted" style={{ fontSize: "0.85rem" }}>
+                      {post.time}
+                    </div>
                   </div>
                 </div>
                 <Card.Text>{post.content}</Card.Text>
