@@ -25,12 +25,12 @@ const Register = () => {
     setSuccess("");
 
     if (form.password !== form.confirmPassword) {
-      setError("❌ Passwords do not match");
+      setError("Passwords do not match");
       return;
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/auth/register", {
+      const res = await axios.post("http://localhost:3001/auth/register", {
         name: form.name,
         username: form.username,
         email: form.email,
@@ -39,21 +39,21 @@ const Register = () => {
         withCredentials: true
       });
 
-      setSuccess("✅ Registered Successfully!");
+      setSuccess("Registered Successfully!");
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("email", form.email);
 
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       console.error("Registration error:", err);
-      setError("❌ Registration Failed: " + (err.response?.data?.error || "Server error"));
+      setError((err.response?.data?.error || "Registration failed."));
     }
   };
 
   return (
     <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "90vh" }}>
       <div className="card p-4 shadow-lg w-100" style={{ maxWidth: "450px", backgroundColor: "#f8f9fa" }}>
-        <h3 className="text-center mb-4">🔐 Register</h3>
+        <h3 className="text-center mb-4">Sign Up</h3>
         {error && <div className="alert alert-danger">{error}</div>}
         {success && <div className="alert alert-success">{success}</div>}
         <form onSubmit={handleSubmit}>
